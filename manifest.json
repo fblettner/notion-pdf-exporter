@@ -6,7 +6,7 @@
   "author": "Franck Blettner (Nomana-IT)",
   "short_name": "Notion PDF Exporter",
   "homepage_url": "https://github.com/fblettner/notion-pdf-exporter",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "permissions": ["activeTab", "scripting"],
   "host_permissions": [
     "https://www.notion.so/*",
     "https://notion.so/*"
