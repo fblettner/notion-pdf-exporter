@@ -1,0 +1,14 @@
+/* Notion PDF Exporter - injected CSS */
+/* This file is automatically injected into all Notion pages */
+
+@media print {
+  /* Ensure dividers always trigger page breaks */
+  .notion-divider-block {
+    page-break-after: always !important;
+    break-after: page !important;
+    border: none !important;
+    background: transparent !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+}

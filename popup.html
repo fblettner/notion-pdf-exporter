@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notion PDF Exporter</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      width: 300px;
+      background: #fff;
+      color: #1a1a1a;
+    }
+    .header {
+      background: linear-gradient(135deg, #2f2f2f 0%, #1a1a1a 100%);
+      padding: 18px 20px 14px;
+      color: white;
+    }
+    .header-title { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
+    .header-sub { font-size: 11px; opacity: 0.6; margin-top: 2px; }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      font-size: 10px;
+      padding: 2px 8px;
+      margin-top: 6px;
+    }
+    .content { padding: 16px 20px; }
+    .info-box {
+      background: #f7f6f3;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 14px;
+    }
+    .info-box strong { color: #1a1a1a; }
+    .warn-box {
+      background: #fffbeb;
+      border: 1px solid #f0e0a0;
+      border-radius: 8px;
+      padding: 9px 13px;
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: #7a5c00;
+      margin-bottom: 14px;
+    }
+    .btn-export {
+      width: 100%;
+      background: #2f2f2f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-export:hover { background: #111; }
+    .btn-export:disabled { background: #999; cursor: not-allowed; }
+    .status {
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: #666;
+      text-align: center;
+      min-height: 16px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .status.error { color: #c44; }
+    .status.success { color: #2a7a2a; }
+    .not-notion {
+      padding: 20px;
+      text-align: center;
+      color: #888;
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+    .not-notion .icon { font-size: 32px; margin-bottom: 8px; }
+    .footer {
+      padding: 10px 20px 14px;
+      font-size: 10.5px;
+      color: #bbb;
+      text-align: center;
+      border-top: 1px solid #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title" style="display:flex;align-items:center;gap:8px;"><img src="data:image/png;base64,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" style="width:22px;height:22px;border-radius:50%;flex-shrink:0;"> Notion PDF Exporter</div>
+  <div class="header-sub">Page breaks at dividers — free &amp; open</div>
+  <div class="badge">Free Forever</div>
+</div>
+
+<div id="main-content">
+  <div id="notion-view" style="display:none">
+    <div class="content">
+      <div class="info-box">
+        <strong>How it works:</strong> Place <code>---</code> divider blocks where you want page breaks. The extension scrolls to load all content, then opens the print dialog.
+      </div>
+      <div class="warn-box">
+        ⏱️ Takes ~3s to scroll and load all content — this is normal.
+      </div>
+      <button class="btn-export" id="btn-export"><img src="data:image/png;base64,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" style="width:16px;height:16px;border-radius:50%;margin-right:8px;vertical-align:middle;"> Export to PDF</button>
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+  <div id="not-notion-view" style="display:none">
+    <div class="not-notion">
+      <div class="icon">📝</div>
+      Open a <strong>Notion page</strong> to use this extension.
+    </div>
+  </div>
+</div>
+
+<div class="footer">Open source • Works with Notion dividers (—)</div>
+<script src="popup.js"></script>
+</body>
+</html>
