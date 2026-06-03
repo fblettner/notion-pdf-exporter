@@ -12,7 +12,7 @@ Notion PDF Page Break Exporter makes exporting clean PDFs from Notion easy. The 
 - Divider-based page breaks: Use `---` in Notion to force a new PDF page.
 - Lightweight: No external servers or accounts — all work happens in your browser.
 - Open source: MIT licensed. Inspect or contribute on GitHub.
-- Works on public Notion pages and inside your workspace (runs only on notion.so domains).
+- Works on public Notion pages and inside your workspace (runs only on app.notion.com and notion.so domains).
 
 ## 📦 Install — From the Chrome Web Store
 
