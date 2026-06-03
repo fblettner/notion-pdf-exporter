@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   const isNotion = tab?.url && (
-    tab.url.includes('notion.so') || tab.url.includes('notion.site')
+    tab.url.includes('app.notion.com') || tab.url.includes('notion.so') || tab.url.includes('notion.site')
   );
 
   document.getElementById('notion-view').style.display = isNotion ? 'block' : 'none';
